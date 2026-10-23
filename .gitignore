@@ -1,0 +1,41 @@
+# Dependencies
+/node_modules/
+/.pnp/
+.pnp.*
+
+# Next.js and build output
+/.next/
+/out/
+/build/
+/dist/
+next-env.d.ts
+*.tsbuildinfo
+
+# Local environment and credentials
+.env*
+!.env.example
+/.aws/
+/.agents/
+/.codex/
+/.vercel/
+.npmrc
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+service-account*.json
+
+# Logs and test output
+*.log
+/coverage/
+/playwright-report/
+/test-results/
+
+# Editor and operating-system files
+.DS_Store
+Thumbs.db
+/.idea/
+/.vscode/
+*.swp
+*.swo

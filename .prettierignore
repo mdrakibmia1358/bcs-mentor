@@ -1,0 +1,11 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+coverage/
+.aws/
+.agents/
+.codex/
+package-lock.json
+next-env.d.ts
