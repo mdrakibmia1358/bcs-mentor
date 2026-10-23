@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { Brand } from "@/components/layout/brand";
 import { Icon } from "@/components/ui/icon";
 import { site } from "@/lib/site";
@@ -35,12 +36,13 @@ export function SiteHeader() {
             </a>
           ))}
         </nav>
-        <a
-          href="#study-plan"
+        <Link
+          href={site.dashboardDemo.href}
+          aria-label={site.dashboardDemo.accessibleLabel}
           className="button button-outline hidden text-sm md:inline-flex"
         >
-          প্রস্তুতির ছক <Icon name="arrow" className="size-4" />
-        </a>
+          {site.dashboardDemo.label} <Icon name="arrow" className="size-4" />
+        </Link>
         <button
           ref={menuButton}
           type="button"
@@ -70,13 +72,14 @@ export function SiteHeader() {
               {link.label}
             </a>
           ))}
-          <a
-            href="#study-plan"
+          <Link
+            href={site.dashboardDemo.href}
+            aria-label={site.dashboardDemo.accessibleLabel}
             onClick={() => setMenuOpen(false)}
             className="button button-primary mt-2"
           >
-            প্রস্তুতির ছক দেখুন <Icon name="arrow" className="size-4" />
-          </a>
+            {site.dashboardDemo.label} <Icon name="arrow" className="size-4" />
+          </Link>
         </div>
       </nav>
     </header>

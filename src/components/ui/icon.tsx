@@ -1,6 +1,25 @@
 import type { ReactNode, SVGProps } from "react";
 
 const paths = {
+  dashboard: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </>
+  ),
+  activity: (
+    <>
+      <path d="M4 3v18h17M8 16v-4m5 4V7m5 9V4" />
+    </>
+  ),
+  calendar: (
+    <>
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M7 3v4m10-4v4M3 11h18m-13 4h2m4 0h2m-8 3h2" />
+    </>
+  ),
   arrow: <path d="M4 12h15m-6-6 6 6-6 6" />,
   book: (
     <>
