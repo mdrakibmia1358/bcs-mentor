@@ -75,6 +75,15 @@ summary::-webkit-details-marker {
   .button-outline {
     @apply border border-forest/25 text-forest hover:bg-mint;
   }
+  .dashboard-panel {
+    @apply min-w-0 rounded-xl border border-line bg-white p-4 sm:p-6;
+  }
+  .dashboard-heading {
+    @apply text-base font-semibold leading-8 text-forest sm:text-lg;
+  }
+  .dashboard-tag {
+    @apply inline-flex shrink-0 items-center rounded-full border border-line bg-paper px-3 py-1 text-xs leading-5 text-leaf;
+  }
 }
 
 .hero-surface {

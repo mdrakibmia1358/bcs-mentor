@@ -1,5 +1,6 @@
 import { Brand } from "@/components/layout/brand";
 import { site } from "@/lib/site";
+import Link from "next/link";
 
 export function SiteFooter() {
   return (
@@ -20,6 +21,13 @@ export function SiteFooter() {
               {link.label}
             </a>
           ))}
+          <Link
+            href={site.dashboardDemo.href}
+            aria-label={site.dashboardDemo.accessibleLabel}
+            className="nav-link text-sm"
+          >
+            {site.dashboardDemo.label}
+          </Link>
         </nav>
         <p className="text-xs leading-6 text-muted">
           বাংলায় তৈরি, আপনার প্রস্তুতির জন্য।

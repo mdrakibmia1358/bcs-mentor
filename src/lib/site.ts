@@ -2,6 +2,11 @@ export const site = {
   name: "BCS Mentor",
   description:
     "বিসিএস প্রস্তুতি হোক বাংলায়, নিজের গতিতে ও একটি গোছানো পরিকল্পনায়। BCS Mentor-এর সঙ্গে চিনে নিন আপনার প্রস্তুতির পথ।",
+  dashboardDemo: {
+    label: "ড্যাশবোর্ড ডেমো",
+    accessibleLabel: "ড্যাশবোর্ড ডেমো — Dashboard Demo",
+    href: "/dashboard",
+  },
   navigation: [
     { label: "প্রস্তুতির পথ", href: "#approach" },
     { label: "বিষয়সমূহ", href: "#subjects" },
