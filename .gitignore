@@ -10,6 +10,7 @@
 /dist/
 next-env.d.ts
 *.tsbuildinfo
+/src/generated/prisma/
 
 # Local environment and credentials
 .env*
