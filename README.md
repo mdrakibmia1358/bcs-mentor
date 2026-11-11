@@ -121,4 +121,6 @@ git ls-files --others --exclude-standard
 
 `git diff` alone excludes untracked files. Review new files too, or use `git diff --no-index /dev/null <file>` for an individual new file (exit code 1 means differences were found). Check that no credentials or local environment files are included. Commit and push only after explicit approval of the complete diff.
 
-Phase A remains uncommitted and awaits review before Phase B. Do not execute the prepared migration, commit, push, merge, or deploy as part of this phase.
+As of **11 November 2026**, Phase A is published in [Draft PR #3](https://github.com/mdrakibmia1358/bcs-mentor/pull/3), with **4 commits and 29 changed files** at HEAD `40519f1eb96b26a3394e11be77326e5bc46d381b`. CI commit `40519f1` adds GitHub Actions validation; [run 42963575524](https://github.com/mdrakibmia1358/bcs-mentor/actions/runs/42963575524) completed successfully.
+
+See the [11 November 2026 addendum](docs/milestone-03-phase-a-review.md#status-addendum--11-november-2026) for the current security-test, dependency-audit, and SQL-comparison evidence. Earlier review results retain their original dates. Phase A awaits independent review before Phase B; keep PR #3 **Draft** and [Issue #2](https://github.com/mdrakibmia1358/bcs-mentor/issues/2) **Open**. No database migration has been applied and no live authentication integration has been performed. This documentation cleanup does not authorize commits, pushes, merges, deployments, migrations, or live authentication enablement.

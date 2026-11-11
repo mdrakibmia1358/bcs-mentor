@@ -428,3 +428,17 @@ It installed **596 packages in 33 seconds**. Prisma preinstall, Prisma engines p
 | Live database, migrations, email delivery, signup/recovery, production deploy | Not executed; prohibited or deferred                                       |
 
 Only synthetic test fixtures contain connection strings or token-shaped values. They are explicitly marked, use loopback/reserved `.test` destinations, and are included unchanged as actual test source. The ZIP excludes real environment files, real secrets, credentials, dependency directories, build output, generated Prisma client code, and private Git data. It contains the complete current source, all 28 changed files, a full inventory and SHA-256 manifest, source diffs, reproducible command runners, and sanitized evidence. Final approval remains with the independent reviewer; Phase B has not started.
+
+## Status addendum — 11 November 2026
+
+This update records the current review status without replacing the **24 October 2026** historical evidence above. Its earlier file inventories, deferred-CI statements, audit results, and exact SQL-match claims remain dated historical observations.
+
+- **Draft PR #3:** [4 commits and 29 changed files](https://github.com/mdrakibmia1358/bcs-mentor/pull/3), from `main` at `52413831a3e0786f21f1e739f70f8973dfa55038` to `feat/auth-foundation` at `40519f1eb96b26a3394e11be77326e5bc46d381b`. This is the published PR snapshot before this local documentation cleanup.
+- **CI:** commit `40519f1` adds the GitHub Actions workflow. [Run 42963575524](https://github.com/mdrakibmia1358/bcs-mentor/actions/runs/42963575524) completed with **success**.
+- **Local security tests:** **118/118 passed** (`npm run test:security`).
+- **Production dependency audit:** **0 vulnerabilities** (`npm audit --omit=dev --audit-level=low`).
+- **Full dependency audit:** **moderate development findings** remain (`npm audit --include=dev --audit-level=high`); a passing high/critical threshold does not mean zero findings.
+- **SQL comparison:** the prepared migration SQL and generated SQL differ by **one extra terminal newline (`LF`) in the generated output**. They are not byte-for-byte identical. No schema or migration SQL was changed in this cleanup.
+- **Integration boundary:** no database migration has been executed and no live authentication integration has been performed. Database-backed auth, real email delivery, and recovery remain untested and deferred.
+
+The local test, audit, and SQL-comparison results are recorded verification evidence, not new executions during this documentation-only cleanup. The PR/HEAD counts and Actions result were checked read-only. Keep PR #3 **Draft** and [Issue #2](https://github.com/mdrakibmia1358/bcs-mentor/issues/2) **Open** pending independent review; Phase B remains deferred. The corrected PR description is local review text only, with no GitHub metadata update, commit, push, merge, deployment, or migration authorized by this cleanup.
