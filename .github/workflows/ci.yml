@@ -1,0 +1,91 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .nvmrc
+          package-manager-cache: false
+
+      - name: Install locked dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Run offline security tests
+        run: npm run test:security
+
+      - name: Validate Prisma schema
+        run: npm run db:validate
+
+      - name: Reproduce auth schema offline
+        run: |
+          schema_dir="$(mktemp -d "$RUNNER_TEMP/auth-schema.XXXXXX")"
+          mkdir "$schema_dir/prisma"
+          # Keep generator/datasource settings; regenerate every auth model.
+          sed '/^[[:space:]]*model[[:space:]]/,$d' prisma/schema.prisma > "$schema_dir/prisma/schema.prisma"
+          (
+            cd "$schema_dir"
+            node --experimental-strip-types "$GITHUB_WORKSPACE/scripts/generate-auth-schema.mjs"
+            "$GITHUB_WORKSPACE/node_modules/.bin/prisma" format --schema prisma/schema.prisma
+          )
+          cmp prisma/schema.prisma "$schema_dir/prisma/schema.prisma"
+
+      - name: Compare offline migration SQL
+        run: |
+          sql_file="$(mktemp "$RUNNER_TEMP/auth-migration.XXXXXX.sql")"
+          npm run --silent db:diff > "$sql_file"
+          node --input-type=module - "$sql_file" <<'NODE'
+          import assert from "node:assert/strict";
+          import { readFileSync } from "node:fs";
+
+          const committed = readFileSync("prisma/migrations/20261024000000_auth_foundation/migration.sql");
+          const generated = readFileSync(process.argv[2]);
+          // Accept only identical bytes or the verified single extra terminal LF.
+          const withOneExtraLF = Buffer.concat([committed, Buffer.from("\n")]);
+          assert.ok(
+            generated.equals(committed) || generated.equals(withOneExtraLF),
+            "Generated SQL differs from committed SQL beyond one extra terminal LF.",
+          );
+          console.log("Migration SQL matches (at most one extra terminal LF).");
+          NODE
+
+      - name: Build
+        run: npm run build
+
+      - name: Audit production dependencies (any severity fails)
+        if: ${{ !cancelled() }}
+        run: npm audit --omit=dev --audit-level=low
+
+      # Known moderate development findings remain visible; high/critical fail.
+      - name: Audit all dependencies (high or critical fails)
+        if: ${{ !cancelled() }}
+        run: npm audit --include=dev --audit-level=high
